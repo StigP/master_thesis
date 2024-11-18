@@ -5,34 +5,26 @@ import simpy
 import time
 import pandas as pd
 import numpy as np
+import random
+import math
 import matplotlib.pyplot as plt
 
 import heapq
-
 import textwrap # For LaTex outputs
 from fpdf import FPDF # For PDF output report.
-
-
 from tabulate import tabulate 
-
-import random
-import math
-
 from functools import wraps
 
-#For optimizing:
+#For Scipy Optimizing:
 from scipy.optimize import dual_annealing #Generalized Simulated Annealing.
-#from scipy.optimize import minimize
 from scipy.optimize import differential_evolution
 from scipy import stats
 
 import itertools #for iterations.
 
-#Own import:
+#Own imports:
 from simulation import FlightSimulation, MonteCarloSimulation
 from sorting import FlightOptimizer #Own optimizer
-
-#For lower bound estimates:
 from utils import milp_separation_solver, low_bound_deice_with_sep, deice_padlist, separation_time, sum_deice_pad_totals, sort_deice_pads_by_total, lognormal_survival_time
 
 
@@ -674,7 +666,7 @@ class TSATOptimization:
                 else:
                     T_statistic = mean_diff / (std_diff / np.sqrt(total_samples))
             
-                # WIP here: Calculate the critical t-value for 95% confidence
+                # Calculate the critical t-value for 95% confidence
                 confidence_level = 0.95
                 t_critical = stats.t.ppf(1 - (1 - confidence_level) / 2, df=total_samples - 1)
 
@@ -930,14 +922,8 @@ class TSATOptimization:
                             
                             target_temp = - max_dE/np.log(self._target_acc_prob_init)
                             
-                            #WIP revised: Update target temp final:
+                            # Update target temp final:
                             self._target_Temp_final = - max_dE/np.log(target_accept_prob_final)
-                            #print("New final targettemp line 1546")
-                            #print(self._target_Temp_final)
-                            #input()
-                            #print("target temp line 1537 changed line 1532 with #")
-                            #print(target_temp)
-                            #input()
                             self._initial_temperature = target_temp
                             temperature = target_temp
 
@@ -946,9 +932,8 @@ class TSATOptimization:
                                 rem_temp_updates = np.ceil(max_local_iter / iter_per_temp)
                                 cooling_rate = np.exp(np.log(self._target_Temp_final / self._initial_temperature) / rem_temp_updates)
                                 print(f"Recalculated cooling rate: {cooling_rate}")
-                                #input()
+                                
                            
-                            
                     # Selects either extremes (RW or GD) or SA:
                     if random_walk:
                         # Locks acceptance at 1 for a RW
@@ -963,14 +948,9 @@ class TSATOptimization:
                     # Calculate acceptance probability and accept/reject new solution
                         acceptance_probability = self.calculate_acceptance_probability(candidate_diff_value, new_diff_value, temperature)
                         
-                    #print("Linje 1565 temp")
-                    #print(temperature_list)
-                    #print(acceptance_probability)
-                    # input()
 
                     if new_diff_value < candidate_diff_value or (self._rng_optim.random() < acceptance_probability):
                        
-
                         if self._bufferoptimization:
                             if new_diff_value<candidate_diff_value:
                                 
@@ -1013,8 +993,6 @@ class TSATOptimization:
                     accepted_values_list.append(candidate_value)
                     temperature_list.append(temperature)
 
-                    # print("line 1603 temp list")
-                    # print(temperature_list)
                     accept_prob_list.append(acceptance_probability)
                     
                     # Cool down geometrically at intervals and update iter length
@@ -1028,22 +1006,15 @@ class TSATOptimization:
                             if rem_iter<rem_local_iter:
                                 rem_temp_updates = rem_iter/iter_per_temp
 
-                                #New cooling rate:
+                                # New cooling rate:
                                 cooling_rate = np.exp(np.log(self._target_Temp_final/temperature)*1/rem_temp_updates)
-                                # print(rem_iter,iter_per_temp)
-                                # print(rem_temp_updates,self._target_Temp_final,temperature)
-                                # print("Cool rate new line 1639")
-    
-                                # print(cooling_rate)
-                                # input()
+                                
                             self.cool_rate_is_adjusted = True
                             
 
                     if local_iteration > 0 and local_iteration % iter_per_temp_0 == 0:
                         temperature *= cooling_rate
-                        #print("line 1635 temp")
-                        #print(temperature)
-                        #input()
+                       
                         iter_per_temp_0 = math.ceil(iter_per_temp_0 * beta_rate)
                         
                     # Check in SA if callback requests to stop early:
@@ -1298,6 +1269,8 @@ class TSATOptimization:
         TSSA: Tailored with Simulated Annealing
         TSLSSA: Tailored with LS and multiple SA
         TSLSSA: Tailored with LS and single SA
+        TSRW: Tailord with Random Walk
+        TSGD: Tailored with Greedy Descent
 
         """
 
@@ -1560,7 +1533,7 @@ class TSATOptimization:
         self._min_pos_taxi = min(non_zero_values, default=0)
        
     def upper_bound_rwy_throughput(self):
-        """WIP here. Computes a upper_bound, the most restrictive of either 
+        """Computes a upper_bound, the most restrictive of either 
         separation between flights (MILP solve) 
         or deice work load plus taxi times"""
         self.min_positive_taxi_time() 
@@ -1689,7 +1662,7 @@ class TSATOptimization:
     # Plots and Reports in latex and PDF:
 
     def plot_results(self, total_iterations, best_values, temperatures, accepted_values):
-        """WIP Plots the SA runs with the best values, accepted solutions, and temperature over total iterations"""
+        """Plots the SA runs with the best values, accepted solutions, and temperature over total iterations"""
         
         fig, ax1 = plt.subplots()
 
