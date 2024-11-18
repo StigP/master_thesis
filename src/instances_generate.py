@@ -4,8 +4,8 @@ Version 110.
 This file generates instances and runs the entire simulation
 and optimization for that instance.
 
-Current example run is the stochastic instance: inst05n20k5cds5b.
-Instance 05:
+Current example run is the stochastic instance: inst03n20k5cds5b.
+Instance 03:
 It has n=20 flights, k=5 deice servers
 Objective: Min Total Cost (c)
 Deterministic Optimization (d)
@@ -47,9 +47,9 @@ surrogat = False # If C(x) evaluations can be done by surrogat model f(x), Disab
 buffer_optim="no" #min or prob, if no set fixed minutes buffer
 buff = 5 #minutes start buffer, or if prob: prob (0,1)
 
-name ="inst05n20k5cds5b"
+name ="inst03n20k5cds5b"
 
-short_summary = "Deterministic Optim - Stochastic scenario. 5 min fixed buffer"
+short_summary = "Cost optimization. Assumes FCFS is managed. 5 min buffer."
 printout = False #Creates a log if True and print to terminal.
 plots = True #Creates plots if True
 
@@ -202,8 +202,8 @@ cost_params = (
 # Scale with the weight factor
 cost_params = tuple(tuple(param * delay_cost_weight_factor for param in params) for params in cost_params)
 
-# ATC management of FCFS queue to reduce delays?
-fcfs_management = True #Manages the queue
+# ATC management of FCFS queue to reduce waiting at taxiways?
+fcfs_management = True #ATC Manages the queue - releases from gate and push and hold.
 
 # Stochastic noise
 noise_params = {
