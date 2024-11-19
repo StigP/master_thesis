@@ -4,7 +4,7 @@ This repository contains the complete source code for the project, which consist
 
 ## Repository Link
 The full source code is available on GitHub:  
-[https://github.com/StigP](https://github.com/StigP)
+[h[ttps://github.com/StigP](https://github.com/StigP](https://github.com/StigP/master_thesis))
 
 ---
 
