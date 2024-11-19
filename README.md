@@ -2,10 +2,6 @@
 
 This repository contains the complete source code for the project, which consists of approximately 4,500 lines of Python code. The project utilizes object-oriented programming and is organized into several modules. Below is an overview of the key components and their purposes.
 
-## Repository Link
-The full source code is available on GitHub:  
-[h[ttps://github.com/StigP](https://github.com/StigP](https://github.com/StigP/master_thesis))
-
 ---
 
 ## Project Structure
