@@ -1,0 +1,11 @@
+flight_id,aircraft_cat,SOBT,TOBT,SID,expected_AOBT_noise,expected_EXOT,expected_EXOT_noise,deice_service_need,deice_expected_ADIT,deice_expected_ADIT_sigma,deice_expected_wait,exp_taxi_from_deice,wait_cost_per_min,delay_cost_per_min,TSAT,expected_ERZT,expected_ECZT,expected_AEZT,expected_ETOT
+Flight01,M,0,0,N,0,4,0,[1],6,0.05,0,4,"(100,)",20,0,4,4,10,14
+Flight02,M,0,0,N,0,4,0,[1],20,0.05,0,4,"(100,)",20,0,4,4,24,28
+Flight03,M,0,0,N,0,4,0,[1],8,0.05,0,4,"(100,)",20,0,4,4,12,16
+Flight04,M,0,0,N,0,4,0,[1],5,0.05,0,4,"(100,)",20,0,4,4,9,13
+Flight05,M,0,0,N,0,4,0,[1],8,0.05,0,4,"(100,)",20,0,4,4,12,16
+Flight06,M,0,0,W,0,4,0,[1],18,0.05,0,4,"(100,)",20,0,4,4,22,26
+Flight07,M,0,0,N,0,4,0,[1],17,0.05,0,4,"(100,)",20,0,4,4,21,25
+Flight08,M,0,0,N,0,4,0,[1],7,0.05,0,4,"(100,)",20,0,4,4,11,15
+Flight09,M,0,0,N,0,4,0,[1],19,0.05,0,4,"(100,)",20,0,4,4,23,27
+Flight10,M,0,0,N,0,4,0,[1],15,0.05,0,4,"(100,)",20,0,4,4,19,23
